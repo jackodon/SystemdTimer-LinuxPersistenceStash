@@ -1,0 +1,37 @@
+[Unit]
+Description=Timer-Stash periodic inventory (stashinfo.py)
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+User=timerstash
+Group=timerstash
+WorkingDirectory=/usr/libexec/timer-stash
+
+# Run your script; emit compact JSON to stdout
+ExecStart=/usr/bin/python3 /usr/libexec/timer-stash/stashinfo.py --compact
+
+# Append each run's stdout (one line JSON) to stash.jsonl
+StandardOutput=append:/var/lib/timer-stash/stash.jsonl
+# Errors go to the journal for debug if needed
+StandardError=journal
+
+# Create and restrict state path; allow writes only there
+StateDirectory=timer-stash
+StateDirectoryMode=0750
+ProtectSystem=strict
+ProtectHome=yes
+ReadWritePaths=/var/lib/timer-stash
+NoNewPrivileges=yes
+PrivateTmp=yes
+LockPersonality=yes
+ProtectControlGroups=yes
+ProtectKernelModules=yes
+ProtectKernelTunables=yes
+RestrictSUIDSGID=yes
+RestrictRealtime=yes
+TimeoutStartSec=120
+
+[Install]
+WantedBy=multi-user.target
