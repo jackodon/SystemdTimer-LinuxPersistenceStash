@@ -10,8 +10,8 @@ CODE_DST_DIR="/usr/libexec/${APP_NAME}"
 STATE_DIR="/var/lib/${APP_NAME}"
 UNIT_DIR="/etc/systemd/system"
 
-SERVICE_UNIT_SRC="${CODE_SRC_DIR}/systemd/timer-stache.service"
-TIMER_UNIT_SRC="${CODE_SRC_DIR}/systemd/timer-stache.timer"
+SERVICE_UNIT_SRC="${CODE_SRC_DIR}/systemd/timer-stash.service"
+TIMER_UNIT_SRC="${CODE_SRC_DIR}/systemd/timer-stash.timer"
 SERVICE_UNIT_DST="${UNIT_DIR}/${APP_NAME}.service"
 TIMER_UNIT_DST="${UNIT_DIR}/${APP_NAME}.timer"
 
