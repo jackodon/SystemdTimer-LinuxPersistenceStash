@@ -50,14 +50,14 @@ Clone the repo again to uninstall at any point.
 ### Example output following successful install
 Created symlink '/etc/systemd/system/timers.target.wants/timer-stash.timer' → '/etc/systemd/system/timer-stash.timer'.
 [✓] timer-stash installed.
-● timer-stash.timer - Runs Timer-Stash inventory hourly
+● timer-stash.timer - Maintains System Inventory Backup
      Loaded: loaded (/etc/systemd/system/timer-stash.timer; enabled; preset: enabled)
      Active: active (waiting) since Fri 2026-02-13 16:23:17 EST; 9ms ago
  Invocation: 4d2d0f44745d460a80cd2d9fad8f39d6
     Trigger: Fri 2026-02-13 16:34:54 EST; 11min left
    Triggers: ● timer-stash.service
 
-Feb 13 16:23:17 fedora-server.novalocal systemd[1]: Started timer-stash.timer - Runs Timer-Stash inventory hourly.
+Feb 13 16:23:17 fedora-server.novalocal systemd[1]: Started timer-stash.timer - Maintains System Inventory Backup.
 Fri 2026-02-13 16:34:54 EST  11min Fri 2026-02-13 16:17:50 EST            - timer-stash.timer            timer-stash.service
 [cyberrange@fedora-server SystemdTimer-LinuxPersistenceStash]$ 
 
@@ -96,6 +96,11 @@ The underlying script can be run directly for one-time collection:
 python3 /usr/libexec/timer-stash/stashinfo.py [options]
 ```
 
+### OpSec Consideration (Logs and Evidence Created)
+The tool is designed to blend-in rather than be invisible. Evidence of the tool exists within /var/lib/timer-stash and /usr/libexec.
+
+Logs of the timer running can be found in journalctl. Limiting run frequency decreases noise. Changing names of timer-stash files and of the timerstash user will help those entries blend in when they are seen if the name *looks* like it belongs on the system.
+
 #### Available Options
 
 ```
@@ -111,6 +116,8 @@ python3 /usr/libexec/timer-stash/stashinfo.py [options]
 --no-logins                 Skip login sessions collection
 --no-secrets                Skip secret hints scan
 ```
+
+- Add desired flag to script execution within timer-stash.service
 
 ### Configure Collection Schedule
 
@@ -187,8 +194,7 @@ Data is appended to `/var/lib/timer-stash/stash.jsonl` (one JSON record per line
 
 ## Security Considerations
 
-- **Sandboxing**: Service uses strict `ProtectSystem`, `NoNewPrivileges`, `PrivateTmp`, `PrivateAudit`
-- **Audit Isolation**: `PrivateAudit=yes` prevents audit spam for each run
+- **Sandboxing**: Service uses strict `ProtectSystem`, `NoNewPrivileges`, `PrivateTmp`
 - **Limited Privileges**: Runs as unprivileged `timerstash` user, no capabilities
 - **Secret Redaction**: By default, detected API keys/tokens are not included; use `--include-secret-values` only in authorized/competition/lab settings
 - **File Permissions**: State directory is mode 0750; only `timerstash` user can read the stash
@@ -230,3 +236,8 @@ systemctl status timer-stash.service
 - **Disk usage**: ~2–10 MB per day at 15-minute intervals (depends on collected data)
 - **Retention**: Append-only; manually archive or rotate `/var/lib/timer-stash/stash.jsonl` as needed
 - **Uninstallation** The tool is designed to clean up after itself using the uninstall.sh script. This will reset the local stash on the victim machine. *IF YOU DID NOT USE --purge-source AT INSTALL, YOU WILL STILL NEED TO MANUALLY REMOVE THE DIRECTORY THE TOOL WAS DOWNLOADED TO. UNINSTALL SCRIPT ONLY CLEANS UP FILES USED BY THE SERVICE, NOT THE CLONED DIRECTORY*
+
+## Opportunity for Improvement
+- While it is certainly possible via the script arguments to change placement of service/script files, I think it could be made easier by incorporating user-input at install
+- Another addition involving user-input at install would be the ability to quickly change the name of the service and other recognizable patterns like the systemd descriptions. This would allow for easier and stealthier redeployment after blue-team discovers the first deployment
+- The tool could be adapted to deliver consequential payloads on timer runs in addition to stashing information
