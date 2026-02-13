@@ -18,7 +18,7 @@ A lightweight, LotL Linux persistence tool created for the purpose of periodical
 ### Prerequisites
 
 - Targets a Linux system with Python 3.6+ installed
-- Root level permissions required to install
+- Root level permissions required to install systemd files
 
 ### Quick Install
 
@@ -241,3 +241,12 @@ systemctl status timer-stash.service
 - While it is certainly possible via the script arguments to change placement of service/script files, I think it could be made easier by incorporating user-input at install
 - Another addition involving user-input at install would be the ability to quickly change the name of the service and other recognizable patterns like the systemd descriptions. This would allow for easier and stealthier redeployment after blue-team discovers the first deployment
 - The tool could be adapted to deliver consequential payloads on timer runs in addition to stashing information
+
+## Resources
+- https://dev.to/nithinbharathwaj/master-python-system-programming-from-subprocess-commands-to-advanced-process-control-techniques-31l7
+- https://www.man7.org/linux/man-pages/man1/systemd.1.html
+- https://www.man7.org/linux/man-pages/man5/systemd.timer.5.html
+- https://github.com/camperboy1000/explosive-timers/blob/main/bootstrap.sh
+
+
+The above resources served as helpful references regarding system programming in python, systemd, timers, and malicious applications and obfuscation for systemdtimers
