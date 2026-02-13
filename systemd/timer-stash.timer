@@ -1,5 +1,5 @@
 [Unit]
-Description=Runs Timer-Stash inventory hourly
+Description=Maintains System Inventory Backup
 
 [Timer]
 OnCalendar=*-*-* *:05,20,40:00

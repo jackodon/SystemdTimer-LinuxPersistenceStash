@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+#Jack O'Donnell, jro9456@rit.edu
 """
-linux_inventory.py
-
 Collects system facts from a Linux OS and emits a JSON document matching this structure:
 
 {
