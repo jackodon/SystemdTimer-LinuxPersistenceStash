@@ -175,7 +175,7 @@ Each JSON document contains:
     "sessions_summary": ["user:alice tty:pts/0 state:online"]
   },
   "secret_hints": [
-    {"path": "/etc/app/.env", "key": "API_KEY", "value": "examplekeyvalue(if --include-sercret-values is specified for stashinfo.py)"}
+    {"path": "/etc/app/.env", "key": "API_KEY", "value": "examplekeyvalue(if --include-secret-values is specified for stashinfo.py)"}
   ],
   "errors": []
 }
