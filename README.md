@@ -1,6 +1,6 @@
 # SystemdTimer-LinuxPersistenceStash
 
-A lightweight, LotL Linux persistence tool created for the purpose of periodically collecting valuable information regarding the target machine using systemd and python. Includes install.sh and uninstall.sh for easy deployment and clean-up. This tool prioritizes stealth and long-term persistence and is designed to work in conjunction with tools like a beacon or c2. After initial access and privilege escelation have been achieved, this tool uses root privileges in order to inconspicuously stash information that can be used to enhance knowledge regarding the attack surface.
+A lightweight, LotL Linux persistence tool created for the purpose of periodically collecting valuable information regarding the target machine using systemd and python. Includes install.sh and uninstall.sh for easy deployment and clean-up. This tool prioritizes stealth and long-term persistence and is designed to work in conjunction with tools like a beacon or c2. After initial access and privilege escelation have been achieved, this tool uses root privileges in order to inconspicuously stash information that can be used to enhance knowledge regarding the attack surface. This tool is only to be used in authorized competition settings, lab settings, or with contractual permission as a red teaming utility.
 
 ## Overview
 
