@@ -390,7 +390,7 @@ def collect_network(errors: List[str]) -> Dict[str, Any]:
 # Secret scanning
 # ============================================
 _SECRET_KEY_PATTERN = re.compile(
-    r"(API[_-]?KEY|ACCESS[_-]?KEY|SECRET(?:[_-]?KEY)?|TOKEN|PASSWORD|PRIVATE[_-]?KEY)",
+    r"(API[_-]?KEY|ACCESS[_-]?KEY|SECRET(?:[_-]?KEY)?|TOKEN|PASSWORD|PRIVATE[_-]?KEY|flag\{[^}\n]{1,200}\)",
     re.IGNORECASE,
 )
 
